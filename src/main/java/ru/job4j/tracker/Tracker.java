@@ -65,13 +65,11 @@ public class Tracker {
 
     public boolean delete(String id) {
         int index = this.indexOf(id);
-        boolean rsl = true;
-        if (index != -1) {
+        boolean rsl = index != -1;
+        if (rsl) {
             this.items[index] = null;
             System.arraycopy(this.items, index + 1, this.items, index, this.position - index);
             this.items[position--] = null;
-        } else {
-            rsl = false;
         }
         return rsl;
     }

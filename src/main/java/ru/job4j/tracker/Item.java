@@ -25,4 +25,14 @@ public class Item {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "Name : %s ; id : %s%s",
+                this.name,
+                this.id,
+                System.lineSeparator()
+        );
+    }
 }

@@ -11,7 +11,7 @@ public class StartUI {
     public static void showAllItems(Tracker tracker) {
         System.out.println("=== All Items ===");
         for (Item item : tracker.findAll()) {
-            System.out.printf("Name : %s ; id : %s%s", item.getName(), item.getId(), System.lineSeparator());
+            System.out.print(item);
         }
     }
 
@@ -42,7 +42,7 @@ public class StartUI {
         String id = input.askStr("Enter id: ");
         Item item = tracker.findById(id);
         if (item != null) {
-            System.out.printf("Name : %s ; id : %s%s", item.getName(), item.getId(), System.lineSeparator());
+            System.out.print(item);
         } else {
             System.out.println("No item with this id exists!");
         }
@@ -54,7 +54,7 @@ public class StartUI {
         Item[] items = tracker.findByName(name);
         if (items.length > 0) {
             for (Item item : items) {
-                System.out.printf("Name : %s ; id : %s%s", item.getName(), item.getId(), System.lineSeparator());
+                System.out.print(item);
             }
         } else {
             System.out.println("No item with this name exists!");

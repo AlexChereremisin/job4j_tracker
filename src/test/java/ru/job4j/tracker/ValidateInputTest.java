@@ -28,12 +28,12 @@ public class ValidateInputTest {
         ByteArrayOutputStream mem = new ByteArrayOutputStream();
         PrintStream out = System.out;
         System.setOut(new PrintStream(mem));
-        String[] data = {"one", "4", "2"};
+        String[] data = {"4", "1"};
         ValidateInput input = new ValidateInput(new StubInput(data));
         input.askInt("Enter", data.length);
         assertThat(
                 mem.toString(),
-                is(String.format("Please enter validate data again.%nPlease select key from menu.%n"))
+                is(String.format("Please select key from menu.%n"))
         );
         System.setOut(out);
     }

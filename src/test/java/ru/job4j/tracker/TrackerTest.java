@@ -1,6 +1,10 @@
 package ru.job4j.tracker;
 
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.core.IsNull.nullValue;
@@ -24,16 +28,19 @@ public class TrackerTest {
         tracker.add(item1);
         tracker.add(item2);
         tracker.add(item3);
-        Item[] expected = {item1, item2, item3};
-        Item[] result = tracker.findAll();
+        List<Item> expected = new ArrayList<>();
+        expected.add(item1);
+        expected.add(item2);
+        expected.add(item3);
+        List<Item> result = tracker.findAll();
         assertThat(result, is(expected));
     }
 
     @Test
     public void whenTrackerHasNoItemWhenNoFind() {
         Tracker tracker = new Tracker();
-        Item[] expected = new Item[0];
-        Item[] result = tracker.findAll();
+        List<Item> expected = new ArrayList<>();
+        List<Item> result = tracker.findAll();
         assertThat(result, is(expected));
     }
 
@@ -46,8 +53,10 @@ public class TrackerTest {
         tracker.add(item1);
         tracker.add(item2);
         tracker.add(item3);
-        Item[] expected = {item2, item3};
-        Item[] result = tracker.findByName("test2");
+        List<Item> expected = new ArrayList<>();
+        expected.add(item2);
+        expected.add(item3);
+        List<Item> result = tracker.findByName("test2");
         assertThat(result, is(expected));
     }
 
@@ -59,8 +68,8 @@ public class TrackerTest {
         tracker.add(item1);
         tracker.add(item2);
         tracker.add(item3);
-        Item[] expected = new Item[0];
-        Item[] result = tracker.findByName("test4");
+        List<Item> expected = new ArrayList<>();
+        List<Item> result = tracker.findByName("test4");
         assertThat(result, is(expected));
     }
 

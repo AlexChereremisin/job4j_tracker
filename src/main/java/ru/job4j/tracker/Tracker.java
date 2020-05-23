@@ -31,6 +31,17 @@ public class Tracker {
         return rsl;
     }
 
+    private int indexOf(String id) {
+        int rsl = -1;
+        for (int index = 0; index < this.items.size(); index++) {
+            if (this.items.get(index).getId().equals(id)) {
+                rsl = index;
+                break;
+            }
+        }
+        return rsl;
+    }
+
     public Item findById(String id) {
         Item rsl = null;
         for (Item item : this.items) {
@@ -43,17 +54,17 @@ public class Tracker {
     }
 
     public boolean replace(String id, Item item) {
-        Item tmp = this.findById(id);
-        boolean rsl = tmp != null;
+        int index = this.indexOf(id);
+        boolean rsl = index != -1;
         if (rsl) {
-            item.setId(tmp.getId());
-            this.items.set(this.items.indexOf(tmp), item);
+            item.setId(id);
+            this.items.set(index, item);
         }
         return rsl;
     }
 
     public boolean delete(String id) {
-        Item tmp = this.findById(id);
-        return tmp != null && this.items.remove(tmp);
+        int index = this.indexOf(id);
+        return index != -1 && this.items.remove(index) != null;
     }
 }

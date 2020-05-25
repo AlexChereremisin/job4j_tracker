@@ -5,6 +5,6 @@ import java.util.Comparator;
 public class SortByNameItemReverseOrder implements Comparator<Item> {
     @Override
     public int compare(Item first, Item second) {
-        return -first.getName().compareToIgnoreCase(second.getName());
+        return second.getName().compareToIgnoreCase(first.getName());
     }
 }

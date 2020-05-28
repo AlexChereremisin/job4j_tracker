@@ -4,24 +4,47 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Tracker {
+/**
+ * Tracker класс контейнер заявок типа Item.
+ */
+public final class Tracker {
+    /**
+     * Список заявок типа Item.
+     */
     private final List<Item> items = new ArrayList<>();
 
-    public void add(Item item) {
+    /**
+     * Метод добавления в список новой заявки.
+     * @param item новая заявка.
+     */
+    public void add(final Item item) {
         item.setId(generateId());
         this.items.add(item);
     }
 
+    /**
+     * Метод генерации ID.
+     * @return сгенерированный ID.
+     */
     private String generateId() {
         Random rm = new Random();
         return String.valueOf(rm.nextLong() + System.currentTimeMillis());
     }
 
+    /**
+     * Метод получения всего списка заявок.
+     * @return весь список заявок.
+     */
     public List<Item> findAll() {
         return this.items;
     }
 
-    public List<Item> findByName(String key) {
+    /**
+     * Метод поиска заявки по ее имени.
+     * @param key ключ для поиска по имени.
+     * @return список заявок с таким же именем.
+     */
+    public List<Item> findByName(final String key) {
         List<Item> rsl = new ArrayList<>();
         for (Item item : this.items) {
             if (item.getName().equals(key)) {
@@ -31,7 +54,12 @@ public class Tracker {
         return rsl;
     }
 
-    private int indexOf(String id) {
+    /**
+     * Метод нахождения индекса по ID заявки.
+     * @param id ID заявки.
+     * @return индекс заявки, иначе -1.
+     */
+    private int indexOf(final String id) {
         int rsl = -1;
         for (int index = 0; index < this.items.size(); index++) {
             if (this.items.get(index).getId().equals(id)) {
@@ -42,7 +70,12 @@ public class Tracker {
         return rsl;
     }
 
-    public Item findById(String id) {
+    /**
+     * Метод поиска заявки по ID.
+     * @param id ID аявки.
+     * @return найденная заявка, иначе null.
+     */
+    public Item findById(final String id) {
         Item rsl = null;
         for (Item item : this.items) {
             if (item.getId().equals(id)) {
@@ -53,7 +86,13 @@ public class Tracker {
         return rsl;
     }
 
-    public boolean replace(String id, Item item) {
+    /**
+     * Метод замены заявки по ID.
+     * @param id ID заменяемой.
+     * @param item новая заявка для этого ID.
+     * @return true если замена совершена, иначе false.
+     */
+    public boolean replace(final String id, final Item item) {
         int index = this.indexOf(id);
         boolean rsl = index != -1;
         if (rsl) {
@@ -63,7 +102,12 @@ public class Tracker {
         return rsl;
     }
 
-    public boolean delete(String id) {
+    /**
+     * Метод удаления заявки по ID.
+     * @param id ID удаляемой заявки.
+     * @return true если удаление совершено, иначе false.
+     */
+    public boolean delete(final String id) {
         int index = this.indexOf(id);
         return index != -1 && this.items.remove(index) != null;
     }

@@ -1,31 +1,63 @@
 package ru.job4j.tracker;
 
-import java.util.Objects;
-
-public class Item {
+/**
+ * Item модель данных описывающая заявки в системе трекера.
+ */
+public final class Item {
+    /**
+     * ID заявки, присваивается в трекере.
+     */
     private String id;
+    /**
+     * Название/имя заявки.
+     */
     private String name;
 
-    public Item(String name) {
-        this.name = name;
+    /**
+     * Конструктор принимающий в качестве
+     * параметра название/имя заявки.
+     * @param newName название/имя заявки
+     */
+    public Item(final String newName) {
+        this.name = newName;
     }
 
+    /**
+     * Геттер ID.
+     * @return ID.
+     */
     public String getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    /**
+     * Сеттер ID.
+     * @param newId ID.
+     */
+    public void setId(final String newId) {
+        this.id = newId;
     }
 
+    /**
+     * Геттер name.
+     * @return name.
+     */
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    /**
+     * Сеттер name.
+     * @param newName newName.
+     */
+    public void setName(final String newName) {
+        this.name = newName;
     }
 
+    /**
+     * Переопределение метода Object.toString().
+     * @return строка вида "Name : name ; id : id\r\n"
+     */
     @Override
     public String toString() {
         return String.format(

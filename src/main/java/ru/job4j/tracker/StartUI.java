@@ -3,8 +3,22 @@ package ru.job4j.tracker;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StartUI {
-    public void init(Input input, Tracker tracker, List<UserAction> userActions) {
+/**
+ * StartUI класс пользовательского консольного интерфейса.
+ */
+public final class StartUI {
+    /**
+     * Метод запуска меню с опросом пользователя.
+     * @param input  ссылка на реализацию входных данных.
+     * @param tracker ссылка на контейнер заявок.
+     * @param userActions ссылка на список
+     *                    доступных пользователю действий.
+     */
+    public void init(
+            final Input input,
+            final Tracker tracker,
+            final List<UserAction> userActions
+    ) {
         boolean run = true;
         while (run) {
             this.showMenu(userActions);
@@ -14,15 +28,27 @@ public class StartUI {
         }
     }
 
-    private void showMenu(List<UserAction> userActions) {
+    /**
+     * Метод вывода меню на консоль.
+     * @param userActions ссылка на список
+     *                    доступных пользователю действий.
+     */
+    private void showMenu(final List<UserAction> userActions) {
         System.out.println("Menu.");
         for (UserAction action : userActions) {
-            System.out.println(userActions.indexOf(action) + " . " + action.name());
+            System.out.println(
+                    userActions.indexOf(action)
+                    + " . "
+                    + action.name()
+            );
         }
     }
 
-
-    public static void main(String[] args) {
+    /**
+     * Точка входа в программу.
+     * @param args args.
+     */
+    public static void main(final String[] args) {
         Input input = new ConsoleInput();
         Input validate = new ValidateInput(input);
         Tracker tracker = new Tracker();

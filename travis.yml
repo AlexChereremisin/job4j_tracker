@@ -1,3 +1,7 @@
+env:
+  global:
+    - CODECOV_TOKEN="f69126fc-452f-4b09-be0b-ac415d95ebaa"
+
 language: java
 jdk:
   - openjdk14
@@ -17,7 +21,3 @@ notifications:
       -71m25@mail.ru
     on_success: never # default: change
     on_failure: always # default: always
-
-env:
-  global:
-    - CODECOV_TOKEN="f69126fc-452f-4b09-be0b-ac415d95ebaa"

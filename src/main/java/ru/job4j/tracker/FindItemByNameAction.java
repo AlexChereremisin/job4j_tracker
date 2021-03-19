@@ -23,7 +23,7 @@ public final class FindItemByNameAction implements UserAction {
      * @return true, т.к. выход из программы не нужен.
      */
     @Override
-    public boolean execute(final Input input, final Tracker tracker) {
+    public boolean execute(final Input input, final Store tracker) {
         String name = input.askStr("Enter name: ");
         List<Item> items = tracker.findByName(name);
         if (items.size() > 0) {

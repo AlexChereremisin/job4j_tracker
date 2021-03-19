@@ -27,7 +27,7 @@ public final class StubAction implements UserAction {
      * @return false, т.к. завершаем работу программы.
      */
     @Override
-    public boolean execute(final Input input, final Tracker tracker) {
+    public boolean execute(final Input input, final Store tracker) {
         call = true;
         return false;
     }

@@ -15,16 +15,15 @@ public final class CreateAction implements UserAction {
     }
 
     /**
-     * Метод выполнения команды Tracker.add(Item).
+     * Метод выполнения команды Store.add(Item).
      * @param input ссылка на реализацию входных данных.
      * @param tracker ссылка на контейнер заявок.
      * @return true, т.к. выход из программы не нужен.
      */
     @Override
-    public boolean execute(final Input input, final Tracker tracker) {
+    public boolean execute(final Input input, final Store tracker) {
         String name = input.askStr("Enter name: ");
         Item item = new Item(name);
-        tracker.add(item);
-        return true;
+        return tracker.add(item).getId() != null;
     }
 }

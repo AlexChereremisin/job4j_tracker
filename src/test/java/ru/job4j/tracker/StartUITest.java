@@ -17,7 +17,7 @@ public class StartUITest {
     public void whenAddItem() {
         String[] answers = {"Fix PC", "Replace cable power"};
         Input input = new StubInput(answers);
-        Tracker tracker = new Tracker();
+        Store tracker = new MemTracker();
         new CreateAction().execute(input, tracker);
         Item created = tracker.findAll().get(0);
         Item expected = new Item("Fix PC");
@@ -26,7 +26,7 @@ public class StartUITest {
 
     @Test
     public void whenReplaceItem() {
-        Tracker tracker = new Tracker();
+        Store tracker = new MemTracker();
         Item item = new Item("new item");
         tracker.add(item);
         String[] answers = {item.getId(), "replaced item"};
@@ -37,7 +37,7 @@ public class StartUITest {
 
     @Test
     public void whenDeleteItem() {
-        Tracker tracker = new Tracker();
+        Store tracker = new MemTracker();
         Item item = new Item("delete this item");
         tracker.add(item);
         String[] answers = {item.getId()};
@@ -54,7 +54,7 @@ public class StartUITest {
         StubAction action = new StubAction();
         List<UserAction> userActions = new ArrayList<>();
         userActions.add(action);
-        new StartUI().init(input, new Tracker(), userActions);
+        new StartUI().init(input, new SqlTracker(), userActions);
         assertThat(action.isCall(), is(true));
     }
 
@@ -69,7 +69,7 @@ public class StartUITest {
         StubAction action = new StubAction();
         List<UserAction> userActions = new ArrayList<>();
         userActions.add(action);
-        new StartUI().init(input, new Tracker(), userActions);
+        new StartUI().init(input, new SqlTracker(), userActions);
         String expect = new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
                 .add("Menu.")
                 .add("0 . Stub action")

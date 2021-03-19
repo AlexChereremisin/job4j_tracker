@@ -17,5 +17,5 @@ public interface UserAction {
      * @return false, если нужен выход из программы,
      * иначе true.
      */
-    boolean execute(Input input, Tracker tracker);
+    boolean execute(Input input, Store tracker);
 }

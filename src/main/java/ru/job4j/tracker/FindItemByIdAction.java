@@ -21,7 +21,7 @@ public final class FindItemByIdAction implements UserAction {
      * @return true, т.к. выход из программы не нужен.
      */
     @Override
-    public boolean execute(final Input input, final Tracker tracker) {
+    public boolean execute(final Input input, final Store tracker) {
         String id = input.askStr("Enter id: ");
         Item item = tracker.findById(id);
         if (item != null) {

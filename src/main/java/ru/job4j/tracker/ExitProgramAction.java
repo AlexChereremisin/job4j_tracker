@@ -21,7 +21,12 @@ public final class ExitProgramAction implements UserAction {
      * @return false, т.к. завершаем работу программы.
      */
     @Override
-    public boolean execute(final Input input, final Tracker tracker) {
+    public boolean execute(final Input input, final Store tracker) {
+        try {
+            tracker.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return false;
     }
 }

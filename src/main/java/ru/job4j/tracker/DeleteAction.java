@@ -21,7 +21,7 @@ public final class DeleteAction implements UserAction {
      * @return true, т.к. выход из программы не нужен.
      */
     @Override
-    public boolean execute(final Input input, final Tracker tracker) {
+    public boolean execute(final Input input, final Store tracker) {
         String id = input.askStr("Enter id: ");
         if (tracker.delete(id)) {
             System.out.println("Deleting successfully!");

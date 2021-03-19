@@ -21,7 +21,7 @@ public final class ReplaceAction implements UserAction {
      * @return true, т.к. выход из программы не нужен.
      */
     @Override
-    public boolean execute(final Input input, final Tracker tracker) {
+    public boolean execute(final Input input, final Store tracker) {
         String id = input.askStr("Enter id: ");
         String name = input.askStr("Enter new name: ");
         Item newItem = new Item(name);

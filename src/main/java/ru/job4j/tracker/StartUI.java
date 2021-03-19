@@ -16,11 +16,12 @@ public final class StartUI {
      */
     public void init(
             final Input input,
-            final Tracker tracker,
+            final Store tracker,
             final List<UserAction> userActions
     ) {
         boolean run = true;
         while (run) {
+            tracker.init();
             this.showMenu(userActions);
             int select = input.askInt("Select: ", userActions.size());
             System.out.println(userActions.get(select).name());
@@ -51,7 +52,7 @@ public final class StartUI {
     public static void main(final String[] args) {
         Input input = new ConsoleInput();
         Input validate = new ValidateInput(input);
-        Tracker tracker = new Tracker();
+        Store tracker = new SqlTracker();
         List<UserAction> userActions = new ArrayList<>();
         userActions.add(new CreateAction());
         userActions.add(new ShowAllItemsAction());

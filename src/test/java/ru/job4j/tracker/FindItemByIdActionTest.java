@@ -14,7 +14,7 @@ public class FindItemByIdActionTest {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         PrintStream def = System.out;
         System.setOut(new PrintStream(out));
-        Tracker tracker = new Tracker();
+        Store tracker = new MemTracker();
         Item item = new Item("fix bug");
         tracker.add(item);
         FindItemByIdAction act = new FindItemByIdAction();

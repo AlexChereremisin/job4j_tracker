@@ -14,7 +14,7 @@ public class FindItemByNameActionTest {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         PrintStream def = System.out;
         System.setOut(new PrintStream(out));
-        Tracker tracker = new Tracker();
+        Store tracker = new MemTracker();
         Item item1 = new Item("fix bug1");
         Item item2 = new Item("fix bug2");
         Item item3 = new Item("fix bug1");

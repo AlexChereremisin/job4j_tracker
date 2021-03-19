@@ -7,7 +7,7 @@ import java.util.Random;
 /**
  * Tracker класс контейнер заявок типа Item.
  */
-public final class Tracker {
+public final class MemTracker implements Store {
     /**
      * Список заявок типа Item.
      */
@@ -17,9 +17,10 @@ public final class Tracker {
      * Метод добавления в список новой заявки.
      * @param item новая заявка.
      */
-    public void add(final Item item) {
+    public Item add(final Item item) {
         item.setId(generateId());
         this.items.add(item);
+        return item;
     }
 
     /**
@@ -110,5 +111,22 @@ public final class Tracker {
     public boolean delete(final String id) {
         int index = this.indexOf(id);
         return index != -1 && this.items.remove(index) != null;
+    }
+
+    /**
+     * Метод заглушка.
+     */
+    @Override
+    public void init() {
+
+    }
+
+    /**
+     * Метод заглушка.
+     * @throws Exception исключение.
+     */
+    @Override
+    public void close() throws Exception {
+
     }
 }

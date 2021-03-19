@@ -21,7 +21,7 @@ public final class ShowAllItemsAction implements UserAction {
      * @return true, т.к. выход из программы не нужен.
      */
     @Override
-    public boolean execute(final Input input, final Tracker tracker) {
+    public boolean execute(final Input input, final Store tracker) {
         for (Item item : tracker.findAll()) {
             System.out.print(item);
         }

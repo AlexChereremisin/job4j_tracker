@@ -27,12 +27,12 @@ public class ImportDB {
 
     /**
      * Конструктор с двумя параметрами для инициализации.
-     * @param cfg конфигурация подключения.
-     * @param dump путь ло файла с данными.
+     * @param configure конфигурация подключения.
+     * @param dumpInfo путь ло файла с данными.
      */
-    public ImportDB(Properties cfg, String dump) {
-        this.cfg = cfg;
-        this.dump = dump;
+    public ImportDB(final Properties configure, final String dumpInfo) {
+        this.cfg = configure;
+        this.dump = dumpInfo;
     }
 
     /**
@@ -41,11 +41,13 @@ public class ImportDB {
      * @return список типа User.
      * @throws IOException исключение ввода-вывода.
      */
-    public List<User> load() throws IOException {
+    public final List<User> load() throws IOException {
         List<User> users = new ArrayList<>();
-        try (BufferedReader rd = new BufferedReader(new FileReader(this.dump))) {
+        try (BufferedReader rd =
+                     new BufferedReader(new FileReader(this.dump))
+        ) {
             rd.lines().forEach(s -> {
-                String[] param = s.trim().split(";", 3);
+                String[] param = s.trim().split(";");
                 users.add(new User(param[0], param[1]));
             });
             return users;
@@ -58,7 +60,8 @@ public class ImportDB {
      * @throws ClassNotFoundException исключение загрузки класса.
      * @throws SQLException исключение базы данных.
      */
-    public void save(List<User> users) throws ClassNotFoundException, SQLException {
+    public final void save(final List<User> users)
+            throws ClassNotFoundException, SQLException {
         Class.forName(cfg.getProperty("jdbc.driver"));
         try (Connection cnt = DriverManager.getConnection(
                 cfg.getProperty("jdbc.url"),
@@ -83,20 +86,20 @@ public class ImportDB {
         /**
          * Имя пользователя.
          */
-        String name;
+        private String name;
         /**
          * Емейл пользователя.
          */
-        String email;
+        private String email;
 
         /**
          * Конструктор с двумя параметрами, для инициализации.
-         * @param name имя пользователя.
-         * @param email емейл пользователя.
+         * @param nameUser имя пользователя.
+         * @param emailUser емейл пользователя.
          */
-        public User(String name, String email) {
-            this.name = name;
-            this.email = email;
+        User(final String nameUser, final String emailUser) {
+            this.name = nameUser;
+            this.email = emailUser;
         }
     }
 
@@ -105,12 +108,16 @@ public class ImportDB {
      * @param args параметры командной строки.
      * @throws Exception исключения.
      */
-    public static void main(String[] args) throws Exception {
+    public static void main(final String[] args) throws Exception {
         Properties cfg = new Properties();
-        try (FileInputStream in = new FileInputStream("./src/main/resources/spammer.properties")) {
+        try (FileInputStream in =
+                     new FileInputStream(
+                             "./src/main/resources/spammer.properties"
+                     )
+        ) {
             cfg.load(in);
         }
-        ImportDB db =new ImportDB(cfg, "./src/main/resources/dump.txt");
+        ImportDB db = new ImportDB(cfg, "./src/main/resources/dump.txt");
         db.save(db.load());
     }
 }

@@ -1,7 +1,12 @@
 package ru.job4j.tracker;
 
 import java.io.InputStream;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -19,7 +24,7 @@ public class SqlTracker implements Store {
      * Метод инициазации соединения с БД.
      */
     @Override
-    public void init() {
+    public final void init() {
         try (
                 InputStream input = SqlTracker.class.
                         getClassLoader().
@@ -44,7 +49,7 @@ public class SqlTracker implements Store {
      * закрытие не произошло.
      */
     @Override
-    public void close() throws Exception {
+    public final void close() throws Exception {
         this.connection.close();
     }
 
@@ -54,7 +59,7 @@ public class SqlTracker implements Store {
      * @return заявка с присвоеным ID.
      */
     @Override
-    public Item add(Item item) {
+    public final Item add(final Item item) {
         try (
                 PreparedStatement statement =
                         this.connection.prepareStatement(
@@ -92,7 +97,7 @@ public class SqlTracker implements Store {
      * false если неуспешно.
      */
     @Override
-    public boolean replace(String id, Item item) {
+    public final boolean replace(final String id, final Item item) {
         int count = 0;
         try (
                 PreparedStatement statement =
@@ -116,7 +121,7 @@ public class SqlTracker implements Store {
      * false если неуспешно.
      */
     @Override
-    public boolean delete(String id) {
+    public final boolean delete(final String id) {
         int count = 0;
         try (
                 PreparedStatement statement =
@@ -138,7 +143,7 @@ public class SqlTracker implements Store {
      * null если заявок нет.
      */
     @Override
-    public List<Item> findAll() {
+    public final List<Item> findAll() {
         List<Item> result = new ArrayList<>();
         try (
                 PreparedStatement statement =
@@ -166,7 +171,7 @@ public class SqlTracker implements Store {
      * или null если совпадений нет.
      */
     @Override
-    public List<Item> findByName(String key) {
+    public final List<Item> findByName(final String key) {
         List<Item> result = new ArrayList<>();
         try (
                 PreparedStatement statement =
@@ -195,7 +200,7 @@ public class SqlTracker implements Store {
      * если такого номера нет.
      */
     @Override
-    public Item findById(String id) {
+    public final Item findById(final String id) {
         Item result = null;
         try (
                 PreparedStatement statement =

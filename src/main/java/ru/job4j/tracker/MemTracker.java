@@ -16,6 +16,7 @@ public final class MemTracker implements Store {
     /**
      * Метод добавления в список новой заявки.
      * @param item новая заявка.
+     * @return возвращает полученную заявку.
      */
     public Item add(final Item item) {
         item.setId(generateId());

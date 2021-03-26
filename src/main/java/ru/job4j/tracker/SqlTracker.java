@@ -1,15 +1,12 @@
 package ru.job4j.tracker;
 
-import java.io.InputStream;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 /**
  * Класс реализации хранилища заявок на основе базы данных.
@@ -20,27 +17,20 @@ public class SqlTracker implements Store {
      */
     private Connection connection;
 
+    /**\
+     * Конструктор инициализирующий соединение с БД.
+     * @param cnt соединение с БД.
+     */
+    public SqlTracker(final Connection cnt) {
+        this.connection = cnt;
+    }
+
     /**
      * Метод инициазации соединения с БД.
      */
     @Override
     public final void init() {
-        try (
-                InputStream input = SqlTracker.class.
-                        getClassLoader().
-                        getResourceAsStream("app.properties")
-        ) {
-            Properties configuration = new Properties();
-            configuration.load(input);
-            Class.forName(configuration.getProperty("driver-class-name"));
-            this.connection = DriverManager.getConnection(
-                    configuration.getProperty("url"),
-                    configuration.getProperty("username"),
-                    configuration.getProperty("password")
-            );
-        } catch (Exception e) {
-            throw new IllegalStateException(e);
-        }
+
     }
 
     /**

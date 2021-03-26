@@ -1,7 +1,11 @@
 package ru.job4j.tracker;
 
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 /**
  * StartUI класс пользовательского консольного интерфейса.
@@ -21,7 +25,6 @@ public final class StartUI {
     ) {
         boolean run = true;
         while (run) {
-            tracker.init();
             this.showMenu(userActions);
             int select = input.askInt("Select: ", userActions.size());
             System.out.println(userActions.get(select).name());
@@ -46,13 +49,36 @@ public final class StartUI {
     }
 
     /**
+     * Инициализация соединения с БД.
+     * @return соединение с БД.
+     */
+    public static Connection initConnect() {
+        try (InputStream in = SqlTracker.class.getClassLoader()
+                .getResourceAsStream("app.properties")
+        ) {
+            Properties config = new Properties();
+            config.load(in);
+            Class.forName(config.getProperty("driver-class-name"));
+            return DriverManager.getConnection(
+                    config.getProperty("url"),
+                    config.getProperty("username"),
+                    config.getProperty("password")
+            );
+        } catch (Exception e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    /**
      * Точка входа в программу.
      * @param args args.
      */
     public static void main(final String[] args) {
         Input input = new ConsoleInput();
         Input validate = new ValidateInput(input);
-        Store tracker = new SqlTracker();
+        Store tracker = new SqlTracker(
+                ConnectionRollback.create(initConnect())
+        );
         List<UserAction> userActions = new ArrayList<>();
         userActions.add(new CreateAction());
         userActions.add(new ShowAllItemsAction());
